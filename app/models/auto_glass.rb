@@ -1,0 +1,2 @@
+class AutoGlass < ApplicationRecord
+end
