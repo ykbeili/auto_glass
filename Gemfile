@@ -37,6 +37,7 @@ gem 'cancancan'
 gem 'draper'
 gem 'pundit'
 
+gem 'bootstrap', '~> 5.3.2'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
