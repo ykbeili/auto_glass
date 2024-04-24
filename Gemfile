@@ -29,6 +29,8 @@ gem "jbuilder"
 # active admin 
 gem 'activeadmin'
 
+# Use Sass to process CSS
+gem "sassc-rails"
 # Plus integrations with:
 gem 'devise'
 gem 'cancancan'
