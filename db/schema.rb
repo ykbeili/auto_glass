@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_030533) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_030630) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -61,6 +61,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_030533) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "auto_glass_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auto_glass_id"], name: "index_order_items_on_auto_glass_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "quantity"
@@ -70,5 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_030533) do
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
+  add_foreign_key "order_items", "auto_glasses"
+  add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "customers"
 end
