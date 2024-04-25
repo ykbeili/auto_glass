@@ -1,0 +1,26 @@
+<%= form_tag root_path, method: :get do %>
+  <div class="field">
+    <%= label_tag :year, "Attribute 1" %>
+    <%= select_tag :year, options_for_select(@years) %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :make, "Attribute 2" %>
+    <%= select_tag :make, options_for_select(@makes) %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :model, "Attribute 3" %>
+    <%= select_tag :model, options_for_select(@models) %>
+  </div>
+
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% if @auto_glasses.present? %>
+  <% @auto_glasses.each do |product| %>
+    <%= product.description %> <!-- Display whatever product information you want -->
+  <% end %>
+<% else %>
+  <p>No auto_glasses found.</p>
+<% end %>
