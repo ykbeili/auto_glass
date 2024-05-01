@@ -21,7 +21,7 @@
         <% else %>
           <div class="d-flex justify-content-end">
             <%= link_to "Login", new_customer_session_path, class:'me-3' %>
-            <%= button_to "Sign Up", new_customer_registration_path, class:'btn btn-primary' %>
+            <%= button_to "Sign Up", new_customer_registration_path, method: :get, class:'btn btn-primary' %>
           </div>
         <% end %>
       </div>
