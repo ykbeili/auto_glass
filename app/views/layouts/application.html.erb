@@ -11,23 +11,23 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <nav class="container">
+    <nav class="py-3 border border-1">
       <div class="row">
         <% if customer_signed_in? %>
-          <div class="col-3 d-flex justify-content-center">
-            <%= link_to "Profile", edit_customer_registration_path, class:'mr-5' %>
-            <%= button_to "Log out", destroy_customer_session_path, method: :delete %>
+          <div class="d-flex justify-content-end">
+            <%= link_to "Profile", edit_customer_registration_path, class:'me-3' %>
+            <%= button_to "Log out", destroy_customer_session_path, method: :delete, class:'btn btn-primary' %>
           </div>
         <% else %>
-          <div class="col-3 d-flex justify-content-center">
-            <%= link_to "Login", new_customer_session_path, class:'mr-5' %>
-            <%= button_to "Sign Up", new_customer_registration_path %>
+          <div class="d-flex justify-content-end">
+            <%= link_to "Login", new_customer_session_path, class:'me-3' %>
+            <%= button_to "Sign Up", new_customer_registration_path, class:'btn btn-primary' %>
           </div>
         <% end %>
       </div>
     </nav>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
