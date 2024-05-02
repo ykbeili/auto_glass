@@ -1,6 +1,6 @@
 <section class="my-5">
   <div class="container">
-    <%= form_tag root_path, method: :get, local: true, class:'row' do %>
+    <%= form_tag root_path, method: :get, class:'row' do %>
       <div class="field col-lg-3 col-12">
         <%= label_tag :year, "Year" %>
         <%= select_tag :year, options_for_select(@years, params[:year].present? ? params[:year] : ''), class:'form-select year-select', :include_blank => true, selected: params[:year].present?  %>
@@ -18,7 +18,7 @@
       <div class='col-lg-3 col-12'>
         <%= submit_tag "Search", class:'mt-auto search-button', disabled: true %>
         <% if params[:commit] == 'Search' %>
-          <%= link_to 'clear', root_path %>
+          <%= link_to "Clear Search", root_path %>
         <% end %>
       </div>
     <% end %>
@@ -72,20 +72,19 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", (event) => {
-    console.log(event)
     const yearSelectMenu = document.getElementsByClassName('year-select')[0];
     const makeSelectMenu = document.getElementsByClassName('make-select')[0];
     const modelSelectMenu = document.getElementsByClassName('model-select')[0];
 
     yearSelectMenu.addEventListener('change', function() {
-      console.log(this, 'this')
       document.getElementsByClassName('make-select-container')[0].classList.remove('d-none');
     });
+
     makeSelectMenu.addEventListener('change', function() {
-      console.log(this, 'this')
       document.getElementsByClassName('model-select-container')[0].classList.remove('d-none')
     });
-    modelSelectMenu[0].addEventListener('change', function() {
+
+    modelSelectMenu.addEventListener('change', function() {
       document.getElementsByClassName('search-button')[0].removeAttribute("disabled")
     });
   });
