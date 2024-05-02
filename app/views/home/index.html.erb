@@ -1,59 +1,92 @@
-<%= form_tag root_path, method: :get do %>
-  <div class="field">
-    <%= label_tag :year, "Year" %>
-    <%= select_tag :year, options_for_select(@years) %>
+<section class="my-5">
+  <div class="container">
+    <%= form_tag root_path, method: :get, local: true, class:'row' do %>
+      <div class="field col-lg-3 col-12">
+        <%= label_tag :year, "Year" %>
+        <%= select_tag :year, options_for_select(@years, params[:year].present? ? params[:year] : ''), class:'form-select year-select', :include_blank => true, selected: params[:year].present?  %>
+      </div>
+
+      <div class="field col-lg-3 col-12 make-menu <%= params[:make].present? ? '' : 'd-none' %> make-select-container">
+        <%= label_tag :make, "Make" %>
+        <%= select_tag :make, options_for_select(@makes, params[:make].present? ? params[:make] : ''), class:'form-select make-select', :include_blank => true  %>
+      </div>
+
+      <div class="field col-lg-3 col-12 model-menu <%= params[:model].present? ? '' : 'd-none' %>  model-select-container">
+        <%= label_tag :model, "Model" %>
+        <%= select_tag :model, options_for_select(@models, params[:model].present? ? params[:model] : ''), class:'form-select model-select', :include_blank => true  %>
+      </div>
+      <div class='col-lg-3 col-12'>
+        <%= submit_tag "Search", class:'mt-auto search-button', disabled: true %>
+        <% if params[:commit] == 'Search' %>
+          <%= link_to 'clear', root_path %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+</section>
 
-  <div class="field">
-    <%= label_tag :make, "Make" %>
-    <%= select_tag :make, options_for_select(@makes) %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :model, "Model" %>
-    <%= select_tag :model, options_for_select(@models) %>
-  </div>
-
-  <%= submit_tag "Search" %>
-<% end %>
-
-<% if @auto_glasses.present? %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">quantity</th>
-        <th scope="col">Part number</th>
-        <th scope="col">Description</th>
-        <th scope="col">availability</th>
-        <th scope="col">Ships</th>
-        <th scope="col">Your Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @auto_glasses.each do |product| %>
+<section>
+<div class="container">
+  <% if @auto_glasses.present? %>
+    <table class="table">
+      <thead>
         <tr>
-          <td>
-           <%= product.quantity %>
-           </td>
-           <td>
-           <%= product.part_number %>
-           </td>
-           <td>
-           <%= product.description %>
-           </td>
-           <td>
-           <%= product.availability %>
-           </td>
-           <td>
-           <%= product.ships_within_days %> days
-           </td>
-           <td>
-           <%= product.price %>
-          </td>
+          <th scope="col">quantity</th>
+          <th scope="col">Part number</th>
+          <th scope="col">Description</th>
+          <th scope="col">availability</th>
+          <th scope="col">Ships</th>
+          <th scope="col">Your Price</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No auto_glasses found.</p>
-<% end %>
+      </thead>
+      <tbody>
+        <% @auto_glasses.each do |product| %>
+          <tr>
+            <td>
+            <%= product.quantity %>
+            </td>
+            <td>
+            <%= product.part_number %>
+            </td>
+            <td>
+            <%= product.description %>
+            </td>
+            <td>
+            <%= product.availability %>
+            </td>
+            <td>
+            <%= product.ships_within_days %> days
+            </td>
+            <td>
+            <%= product.price %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No auto_glasses found.</p>
+  <% end %>
+</div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    console.log(event)
+    const yearSelectMenu = document.getElementsByClassName('year-select')[0];
+    const makeSelectMenu = document.getElementsByClassName('make-select')[0];
+    const modelSelectMenu = document.getElementsByClassName('model-select')[0];
+
+    yearSelectMenu.addEventListener('change', function() {
+      console.log(this, 'this')
+      document.getElementsByClassName('make-select-container')[0].classList.remove('d-none');
+    });
+    makeSelectMenu.addEventListener('change', function() {
+      console.log(this, 'this')
+      document.getElementsByClassName('model-select-container')[0].classList.remove('d-none')
+    });
+    modelSelectMenu[0].addEventListener('change', function() {
+      document.getElementsByClassName('search-button')[0].removeAttribute("disabled")
+    });
+  });
+</script>
