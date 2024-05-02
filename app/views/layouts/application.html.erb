@@ -14,12 +14,14 @@
     <nav class="py-3 border border-1">
       <div class="row">
         <% if customer_signed_in? %>
-          <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end">
+            <%= link_to "Home", root_path, class:'ms-5 ps-4 me-auto'  %>
             <%= link_to "Profile", edit_customer_registration_path, class:'me-3' %>
             <%= button_to "Log out", destroy_customer_session_path, method: :delete, class:'btn btn-primary' %>
           </div>
         <% else %>
           <div class="d-flex justify-content-end">
+            <%= link_to "Home", root_path, class:'ms-5 ps-4 me-auto'  %>
             <%= link_to "Login", new_customer_session_path, class:'me-3' %>
             <%= button_to "Sign Up", new_customer_registration_path, method: :get, class:'btn btn-primary' %>
           </div>

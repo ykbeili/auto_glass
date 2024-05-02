@@ -15,12 +15,14 @@
         <%= label_tag :model, "Model" %>
         <%= select_tag :model, options_for_select(@models, params[:model].present? ? params[:model] : ''), class:'form-select model-select', :include_blank => true  %>
       </div>
+
       <div class='col-lg-3 col-12'>
-        <%= submit_tag "Search", class:'mt-auto search-button', disabled: true %>
+        <%= submit_tag "Search", class:"mt-auto search-button #{params[:model].present? ? '' : 'disabled'} ", disabled: true %>
         <% if params[:commit] == 'Search' %>
           <%= link_to "Clear Search", root_path %>
         <% end %>
       </div>
+
     <% end %>
   </div>
 </section>
@@ -71,7 +73,7 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", (event) => {
+  document.addEventListener("turbo:load", (event) => {
     const yearSelectMenu = document.getElementsByClassName('year-select')[0];
     const makeSelectMenu = document.getElementsByClassName('make-select')[0];
     const modelSelectMenu = document.getElementsByClassName('model-select')[0];
@@ -85,6 +87,7 @@
     });
 
     modelSelectMenu.addEventListener('change', function() {
+      document.getElementsByClassName('search-button')[0].classList.remove("disabled");
       document.getElementsByClassName('search-button')[0].removeAttribute("disabled")
     });
   });
