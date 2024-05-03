@@ -30,9 +30,12 @@
 <section>
 <div class="container">
   <% if @auto_glasses.present? %>
+  <%= form_tag orders_path, method: :post, class:'row' do %>
+    <%= submit_tag "Add to Cart", :class => "btn", :method => :post %>
     <table class="table">
       <thead>
         <tr>
+          <th scope="col"></th>
           <th scope="col">quantity</th>
           <th scope="col">Part number</th>
           <th scope="col">Description</th>
@@ -42,30 +45,35 @@
         </tr>
       </thead>
       <tbody>
-        <% @auto_glasses.each do |product| %>
+        <% @auto_glasses.each do |auto_glass| %>
           <tr>
             <td>
-            <%= product.quantity %>
+            <%= hidden_field_tag "auto_glass_ids[]", auto_glass.id %>
+            <%= check_box_tag "auto_glass_ids[]", auto_glass.id %>
             </td>
             <td>
-            <%= product.part_number %>
+            <%= auto_glass.quantity %>
             </td>
             <td>
-            <%= product.description %>
+            <%= auto_glass.part_number %>
             </td>
             <td>
-            <%= product.availability %>
+            <%= auto_glass.description %>
             </td>
             <td>
-            <%= product.ships_within_days %> days
+            <%= auto_glass.availability %>
             </td>
             <td>
-            <%= product.price %>
+            <%= auto_glass.ships_within_days %> days
+            </td>
+            <td>
+            <%= auto_glass.price %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <% end %>
   <% else %>
     <p>No auto_glasses found.</p>
   <% end %>
