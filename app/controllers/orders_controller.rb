@@ -5,6 +5,12 @@ class OrdersController < ApplicationController
     @auto_glasses = AutoGlass.where(id: params[:auto_glass_ids])
     @order = Order.new()
     @order.customer = current_customer
+    @auto_glasses.each do |auto_glass|
+      order_item = OrderItem.new()
+      order_item.order = @order
+      order_item.auto_glass = auto_glass
+      order_item.save()
+    end
     @order.save!
     redirect_to order_path(@order)
   end

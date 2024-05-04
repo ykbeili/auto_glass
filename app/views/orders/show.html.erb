@@ -1,1 +1,4 @@
 <h1><%= @order.id %></h1>
+<% @order.order_items.each do |order_item| %>
+  <h1><%= order_item.auto_glass.description %></h1>
+<% end %>
